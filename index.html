@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Journal</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+        <header class="header">
+        </header>
+
+        <section class="main-content">
+        </section>
+        <footer class="footer">
+            <p class="footer-app-title">My Learning Journal</p>
+            <p class="copyright">
+                Copyright (C)2022
+            </p>
+        </footer>
+    </div>
+
+
+    <script>
+        const data = {
+            hero: {
+                title: "My new journey as a bootcamp student.",
+                date: "JULY 23, 2022",
+                brief: "After several months of learning in the Frontend Developer Career Path, I've made the big jump over to the Bootcamp to get expert code reviews of my Solo Projects projects and meet like-minded peers.",
+                image: "./article-image-hero.png",
+                body: "<h2>How I stay committed to learning</h2><p>I like to think of myself as a lifelong learner. I used to spend hours and hours learning, then try to create simple projects using what I learned or work new techniques into existing projects.<p> <p>While that was fun, I felt like it would be helpful to share what I was learning and most things about my journey with the world.</p> <h2>How I got started</h2> <p>I started simple and gradually grew my learning journal site. I would take notes about what I was learning. After each learning session, I'd use my notes to not only reflect on what I learned but also write short summaries of what I learned using my own words.</p> <p>That helped me grok what I was learning, and I realized that posting my learning summaries was also helping others learn and stay motivated.</p>"
+            },
+
+            blogs: [
+                {
+                    index: 0,
+                    title: "Blog one",
+                    date: "JULY 23, 2022",
+                    brief: "I'm excited to start a new learning journey as a Scrimba Bootcamp student! After several months of learning in the Frontend Developer Career Path.",
+                    image: "./article-image-03.png",
+                    body: "",
+                },
+                {
+                    index: 1,
+                    title: "Blog two",
+                    date: "JULY 23, 2022",
+                    brief: "I'm excited to start a new learning journey as a Scrimba Bootcamp student! After several months of learning in the Frontend Developer Career Path.",
+                    image: "./article-image-03.png",
+                    body: "",
+                },
+                {
+                    index: 2,
+                    title: "Blog three",
+                    date: "JULY 23, 2022",
+                    brief: "I'm excited to start a new learning journey as a Scrimba Bootcamp student! After several months of learning in the Frontend Developer Career Path.",
+                    image: "./article-image-03.png",
+                    body: "",
+                },
+                {
+                    index: 3,
+                    title: "Blog four",
+                    date: "JULY 23, 2022",
+                    brief: "I'm excited to start a new learning journey as a Scrimba Bootcamp student! After several months of learning in the Frontend Developer Career Path.",
+                    image: "./article-image-03.png",
+                    body: "",
+                },
+                {
+                    index: 4,
+                    title: "Blog five",
+                    date: "JULY 23, 2022",
+                    brief: "I'm excited to start a new learning journey as a Scrimba Bootcamp student! After several months of learning in the Frontend Developer Career Path.",
+                    image: "./article-image-03.png",
+                    body: "",
+                },
+                {
+                    index: 5,
+                    title: "Blog six",
+                    date: "JULY 23, 2022",
+                    brief: "I'm excited to start a new learning journey as a Scrimba Bootcamp student! After several months of learning in the Frontend Developer Career Path.",
+                    image: "./article-image-03.png",
+                    body: "",
+                }
+            ]
+
+
+        }
+        const mainContent = document.querySelector(".main-content")
+        const header = document.querySelector(".header")
+        const viewMoreButtonComponent = `<a href="#" class="view-more" id="view-more">View More</a>`
+
+        renderHeader(header)
+        mainContent.innerHTML = `${renderHero(data.hero, false)}<div class="blogs">${renderBlogs(data.blogs, false)}</div>${viewMoreButtonComponent}`
+
+
+        function removeOneItemWithSlice(index, arr) {
+            return [...arr.slice(0, index), ...arr.slice(index + 1)]
+        }
+
+
+        function renderOtherPosts(posts, specific, notThatIndex) {
+            let postsHTML = ""
+            if (specific) {
+                const slicedPosts = removeOneItemWithSlice(notThatIndex, posts)
+                for (let post in slicedPosts) {
+                    postsHTML += `
+                    <div class="blog" data-index = "${slicedPosts[post].index}"> 
+                            <div class="blog-image-div" id="blog-image-div">
+                                <img src="${slicedPosts[post].image}" class="blog-image" alt="">
+                            </div>
+                            <p class="blog-date">${slicedPosts[post].date}</p>
+                            <h2 class="blog-title">${slicedPosts[post].title}</h2>
+                            <p class="blog-brief">
+                                ${slicedPosts[post].brief}
+                            </p>
+                    </div>
+                `
+                }
+
+                return `<h2 class="recent-posts-title">Recent Posts</h2><div class="recent-posts">${postsHTML}</div>`
+
+            } else {
+
+                console.log("not index provided")
+                for (let post in posts) {
+                    postsHTML += `
+                    <div class="blog" data-index = "${posts[post].index}"> 
+                            <div class="blog-image-div" id="blog-image-div">
+                                <img src="${posts[post].image}" class="blog-image" alt="">
+                            </div>
+                            <p class="blog-date">${posts[post].date}</p>
+                            <h2 class="blog-title">${posts[post].title}</h2>
+                            <p class="blog-brief">
+                                ${posts[post].brief}
+                            </p>
+                    </div>
+                `
+                }
+
+                return `<h2 class="recent-posts-title">Recent Posts</h2><div class="recent-posts">${postsHTML}</div>`
+
+            }
+
+
+
+
+
+        }
+
+
+
+        function renderHeader(toThat) {
+            let headerHTML = ""
+
+            headerHTML = `
+                <div class="logo">
+                    <img src="./logo.png" id="main-logo" alt="logo">
+                </div>
+                <h1 id="app-title">My learning journal</h1>
+                <ul>
+                    <li id="home">HOME</li>
+                    <li id="about">ABOUT ME</li>
+                </ul>
+            `
+            return toThat.innerHTML = headerHTML
+        }
+
+
+        function renderAboutMe(toThat) {
+            let aboutMeHTML = `
+            <div class="about-me">
+                <div class="top">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/7/7d/Lenna_%28test_image%29.png" alt="about me image" class="lenna"/>
+                    <div class="text">
+                        <h1 class="about-me-title">Hi there! My name is Lenna and welcome to my learning journal.</h1>    
+                        <p class="about-me-brief">After several months of learning in the Frontend Developer Career Path, I've made the big jump over to the Bootcamp to get expert code reviews of my Solo Projects projects and meet like-minded peers.</p>
+                    </div>
+                </div>
+                
+                <div class="paragraphs">
+                    <h2>How I stay committed to learning</h2>
+                    <p>I like to think of myself as a lifelong learner. I used to spend hours and hours learning, then try to create simple projects using what I learned or work new techniques into existing projects.<p> <p>While that was fun, I felt like it would be helpful to share what I was learning and most things about my journey with the world.</p>
+                    <h2>How I got started</h2>
+                    <p>I started simple and gradually grew my learning journal site. I would take notes about what I was learning. After each learning session, I'd use my notes to not only reflect on what I learned but also write short summaries of what I learned using my own words.</p> <p>That helped me grok what I was learning, and I realized that posting my learning summaries was also helping others learn and stay motivated.</p>
+                </div>
+
+                ${renderOtherPosts(data.blogs)}
+            </div>
+            `
+
+            return toThat.innerHTML = aboutMeHTML
+
+        }
+
+        function renderHero(heroObj, asPost) {
+            if (asPost) {
+                return `
+                <div class="full">
+                    <p class="date">${heroObj.date}</p>
+                    <h1 id="hero-title">${heroObj.title}</h1>
+                    <p class="brief">After several months of learning in the Frontend Developer Career Path, I've made the big jump
+                        over
+                        to the Bootcamp to get expert code reviews of my SoloProjects projects and meet like-minded
+                        peers.
+                    </p>
+                    <img src="${heroObj.image}" alt="image"/>
+                    <div class="paragraphs">
+                        ${heroObj.body}
+                    </div>
+                    </div>
+            `
+            } else {
+                return `
+                <div class="hero">
+                    <p class="date">${heroObj.date}</p>
+                    <h1 id="hero-title">${heroObj.title}</h1>
+                    <p>${heroObj.brief}
+                    </p>
+                </div>
+                `
+            }
+
+        }
+
+        function renderBlogs(blogsData, specific, blogIndex) {
+            let blogsHTML = ""
+            for (let blogIndex in blogsData) {
+                blogsHTML += `<div class="blog" data-index="${blogIndex}"> 
+                    <div class="blog-image-div">
+                        <img src="${blogsData[blogIndex].image}" class="blog-image" alt="">
+                    </div>
+                    <p class="blog-date">${blogsData[blogIndex].date}</p>
+                    <h2 class="blog-title">${blogsData[blogIndex].title}</h2>
+                    <p class="blog-brief">
+                        ${blogsData[blogIndex].brief}
+                    </p>
+                    </div>`
+            }
+
+            if (specific) {
+                blogsHTML = `
+                <div class="blog" data-index="${blogIndex}">
+                    <div class="blog-image-div">
+                        <img src="${blogsData[blogIndex].image}" class="blog-image" alt="">
+                    </div>
+                    <p class="blog-date">${blogsData[blogIndex].date}</p>
+                    <h2 class="blog-title">${blogsData[blogIndex].title}</h2>
+                    <p class="blog-brief">
+                        ${blogsData[blogIndex].brief}
+                    </p>
+                    </div>
+                    `
+                return blogsHTML
+
+            }
+
+            return blogsHTML
+        }
+
+        document.addEventListener("click", e => {
+
+
+            switch (e.target.id) {
+                case "hero-title":
+                    mainContent.innerHTML = `${renderHero(data.hero, true)}<div class="blogs">${renderOtherPosts(data.blogs)}</div>`
+                    break
+                case "home":
+                    mainContent.innerHTML = `${renderHero(data.hero, false)}<div class="blogs">${renderBlogs(data.blogs, false)}</div>`
+                    break
+                case "main-logo":
+                    mainContent.innerHTML = `${renderHero(data.hero, false)}<div class="blogs">${renderBlogs(data.blogs, false)}</div>`
+                    break
+                case "app-title":
+                    mainContent.innerHTML = `${renderHero(data.hero, false)}<div class="blogs">${renderBlogs(data.blogs, false)}</div>`
+                    break
+                case "about":
+                    renderAboutMe(mainContent)
+                    break
+            }
+
+            switch (e.target.className) {
+                case "blog-title":
+                    mainContent.innerHTML = `<div class="main-blog">${renderBlogs(data.blogs, true, e.target.parentElement.dataset.index)}${renderOtherPosts(data.blogs, e.target.parentElement.dataset.index)}</div>`
+
+                    break
+
+                case "blog-image":
+                    mainContent.innerHTML = `<div class="main-blog">${renderBlogs(data.blogs, true, e.target.parentElement.parentElement.dataset.index)}${renderOtherPosts(data.blogs, e.target.parentElement.parentElement.dataset.index)}</div>`
+                    break
+            }
+        })
+
+    </script>
+</body>
+
+</html>
